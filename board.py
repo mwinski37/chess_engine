@@ -5,16 +5,23 @@ screen = pygame.display.set_mode((1200, 1200))
 clock = pygame.time.Clock()
 running = True
 
-tiles = []
-tile = pygame.Rect(0,0,120,120)
+class Board:
+    def __init__(self):
+        self.rows = 8
+        self.cols = 8
+        self.tile_size = 150
 
-for i in range(8):
-    for j in range(8):
-        if (i + j) % 2 == 0:
-            tiles.append('0')
-        else:
-            tiles.append('1')
+    def draw(self, screen):
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if (i + j) % 2 == 0:
+                    pygame.draw.rect(screen, "gray", (j*self.tile_size, i*self.tile_size,
+                                                    self.tile_size, self.tile_size))
+                else:
+                    pygame.draw.rect(screen, "white", (j*self.tile_size, i*self.tile_size,
+                                                    self.tile_size, self.tile_size))
     
+board = Board()
 
 while running:
     for event in pygame.event.get():
@@ -23,17 +30,7 @@ while running:
 
     screen.fill("white")
 
-    x = 0
-    y = 0
-
-    for i in tiles:
-        if i == '1':
-            pygame.draw.rect(screen, "gray", (x, y, 150, 150))
-
-        x += 150
-        if x == 8 * 150:
-            x = 0
-            y += 150
+    board.draw(screen)            
 
     pygame.display.flip()
 
