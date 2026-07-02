@@ -9,19 +9,24 @@ class Piece:
         return f"{self.color[0].upper()}{self.__class__.__name__[0]}"
 
 class Pawn(Piece):
+    sprite_name = "pawn"
     pass
 
 class Knight(Piece):
-    pass
+    sprite_name = "knight"
 
 class Bishop(Piece):
+    sprite_name = "bishop"
     pass
 
 class Rook(Piece):
+    sprite_name = "rook"
     pass
 
 class Queen(Piece):
+    sprite_name = "queen"
     pass
 
 class King(Piece):
+    sprite_name = "king"
     pass
