@@ -2,17 +2,10 @@ from pieces import Pawn, Knight, Bishop, Rook, Queen, King
 
 import pygame
 
-pygame.init()
-
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 1200
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
 LIGHT = (255, 190, 125)
 DARK = (169, 169, 169)
 
-clock = pygame.time.Clock()
-running = True
+
 
 class BoardRenderer:
     def __init__(self, screen_width, screen_height, rows=8, cols=8):
@@ -34,7 +27,7 @@ class BoardRenderer:
             ("white", "king"): pygame.image.load("assets/white_king"),
         }
 
-    def draw(self, screen, board):
+    def draw(self, screen, board, selected_square):
         for i in range(self.rows):
             for j in range(self.cols):
                 if (i + j) % 2 == 0:
@@ -57,8 +50,12 @@ class BoardRenderer:
 
                     screen.blit(image, (x, y))
 
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if selected_square == (row, col):
+                    pygame.draw.rect(screen, 'green', (col*self.tile_size, row*self.tile_size,
+                                                    self.tile_size, self.tile_size), 3)
 
-board_renderer = BoardRenderer(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 class Board:
     def __init__(self):
@@ -82,22 +79,3 @@ class Board:
     def print_board(self):
         for row in self.board:
             print(row)
-
-board = Board()
-
-board.print_board()
-
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False    
-
-    screen.fill("white")
-
-    board_renderer.draw(screen, board)            
-
-    pygame.display.flip()
-
-    dt = clock.tick(60) / 1000
-
-pygame.quit()

@@ -14,6 +14,7 @@ class Pawn(Piece):
 
 class Knight(Piece):
     sprite_name = "knight"
+    pass
 
 class Bishop(Piece):
     sprite_name = "bishop"
