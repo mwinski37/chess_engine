@@ -1,5 +1,4 @@
 from board import Board, BoardRenderer
-from pieces import Piece
 
 class Game:
     def __init__(self, screen_width, screen_height):

@@ -10,7 +10,28 @@ class Piece:
 
 class Pawn(Piece):
     sprite_name = "pawn"
-    pass
+    def get_moves(self, board, row, col):
+
+        moves = []
+
+        if self.color == 'black' and row == 1:
+            pawn_moves = [(+1,0),(+2,0)]
+        elif self.color == 'white' and row == 6:
+            pawn_moves = [(-1,0),(-2,0)]
+
+
+        for move in pawn_moves:
+            new_row = row + move[0]
+            new_col = col + move[1]
+
+            if board.in_bounds(new_row, new_col):
+                piece = board.get_piece(new_row, new_col)
+                if piece is None:
+                    moves.append((new_row, new_col))
+                elif piece.color != self.color:
+                    moves.append(new_row, new_col)
+
+        return moves
 
 class Knight(Piece):
     sprite_name = "knight"
