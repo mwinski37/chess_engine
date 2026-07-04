@@ -53,9 +53,18 @@ class BoardRenderer:
         for row in range(self.rows):
             for col in range(self.cols):
                 if selected_square == (row, col):
-                    pygame.draw.rect(screen, 'green', (col*self.tile_size, row*self.tile_size,
-                                                    self.tile_size, self.tile_size), 3)
+                    pygame.draw.rect(screen, 'green', 
+                                    (col*self.tile_size, row*self.tile_size,
+                                    self.tile_size, self.tile_size), 3)
+                    
+    def draw_possible_moves(self, screen, moves):
+        if not moves:
+            return
+        for row, col in moves:
+            x = col * self.tile_size + self.tile_size // 2
+            y = row * self.tile_size + self.tile_size // 2
 
+            pygame.draw.circle(screen, 'green', (x, y), 12)
 
 class Board:
     def __init__(self):
@@ -75,6 +84,9 @@ class Board:
 
     def get_piece(self, row, col):
         return self.board[row][col]
+    
+    def in_bounds(self, row, col):
+        return 0 <= row < 8 and 0 <= col < 8
 
     def print_board(self):
         for row in self.board:

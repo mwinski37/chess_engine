@@ -14,7 +14,25 @@ class Pawn(Piece):
 
 class Knight(Piece):
     sprite_name = "knight"
-    pass
+    def get_moves(self, board, row, col):
+
+        moves = []
+
+        knight_moves = [(-2,-1),(-2,+1),(-1,-2),(-1,+2),(+1,-2),(+1,+2),(+2,-1),(+2,+1)]
+
+        for move in knight_moves:
+            new_row = row + move[0]
+            new_col = col + move[1]
+
+            if board.in_bounds(new_row, new_col):
+                piece = board.get_piece(new_row, new_col)
+                if piece is None:
+                    moves.append((new_row, new_col))
+                elif piece.color != self.color:
+                    moves.append((new_row, new_col))
+                            
+        return moves
+
 
 class Bishop(Piece):
     sprite_name = "bishop"
