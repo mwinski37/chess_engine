@@ -16,8 +16,12 @@ class Pawn(Piece):
 
         if self.color == 'black' and row == 1:
             pawn_moves = [(+1,0),(+2,0)]
-        elif self.color == 'white' and row == 6:
+        else:
+            pawn_moves = [(+1,0)]
+        if self.color == 'white' and row == 6:
             pawn_moves = [(-1,0),(-2,0)]
+        else:
+            pawn_moves = [(+1,0)]
 
 
         for move in pawn_moves:
