@@ -61,16 +61,138 @@ class Knight(Piece):
 
 class Bishop(Piece):
     sprite_name = "bishop"
-    pass
+
+    def get_moves(self, board, row, col):
+        moves = []
+
+        directions = [
+            (-1,-1),
+            (-1,+1),
+            (+1,-1),
+            (+1,+1)
+        ]
+
+        for row_direction, col_direction in directions:
+            new_row = row + row_direction
+            new_col = col + col_direction
+
+            while board.in_bounds(new_row, new_col):
+                piece = board.get_piece(new_row, new_col)
+
+                if piece is None:
+                    moves.append(new_row, new_col)
+
+                else:
+                    if piece.color != self.color:
+                        moves.append(new_row, new_col)
+
+                    break
+
+                new_row += row_direction
+                new_col += col_direction
+
+        return moves
+                    
+
 
 class Rook(Piece):
     sprite_name = "rook"
-    pass
+
+    def get_moves(self, board, row, col):
+        moves = []
+
+        directions = [
+            (+1, 0),
+            (-1, 0),
+            (0, -1),
+            (0, -1)
+        ] 
+
+        for row_direction, col_direction in directions:
+            new_row = row + row_direction
+            new_col = col + col_direction
+
+            while board.in_bounds(new_row, new_col):
+                piece = board.get_piece(new_row, new_col)
+
+                if piece is None:
+                    moves.append(new_row, new_col)
+
+                else:
+                    if piece.color != self.color:
+                        moves.append(new_row, new_col)
+
+                    break
+
+            new_row = row_direction
+            new_col = col_direction
+
+        return moves
 
 class Queen(Piece):
     sprite_name = "queen"
-    pass
+
+    def get_moves(self, board, row, col):
+        moves = []
+
+        directions = [
+            (-1,-1),
+            (-1,+1),
+            (+1,-1),
+            (+1,+1),
+            (+1, 0),
+            (-1, 0),
+            (0, -1),
+            (0, -1)
+        ]
+
+        for row_direction, col_direction in directions:
+            new_row = row + row_direction
+            new_col = col + col_direction
+
+            while board.in_bounds(new_row, new_col):
+                piece = board.get_piece(new_row, new_col)
+
+                if piece is None:
+                    moves.append(new_row, new_col)
+
+                else:
+                    if piece.color != self.color:
+                        moves.append(new_row, new_col)
+
+                    break
+
+            new_row = row_direction
+            new_col = col_direction
+
+        return moves
 
 class King(Piece):
     sprite_name = "king"
-    pass
+    def get_moves(self, board, row, col):
+        moves = []
+
+        directions = [
+            (-1,-1),
+            (-1,+1),
+            (+1,-1),
+            (+1,+1),
+            (+1, 0),
+            (-1, 0),
+            (0, -1),
+            (0, -1)
+        ]
+
+        for row_direction, col_direction in directions:
+            new_row = row + row_direction
+            new_col = col + col_direction
+
+            piece = board.get_piece(new_row, new_col)
+
+            if piece is None:
+                moves.append(new_row, new_col)
+
+            elif piece.color != self.color:
+                moves.append(new_row, new_col)
+
+        return moves
